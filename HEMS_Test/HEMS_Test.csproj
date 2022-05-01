@@ -206,6 +206,7 @@
     <Content Include="Models\DbModel.edmx.diagram">
       <DependentUpon>DbModel.edmx</DependentUpon>
     </Content>
+    <Content Include="App_Data\HEMS_test.bak" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\dataTables.bootstrap.js" />
     <Content Include="Scripts\dataTables.buttons.js" />
@@ -256,9 +257,7 @@
     <Content Include="Views\ProductCategory\Partials\EditProductCategory.cshtml" />
     <Content Include="Views\ProductCategory\ProductCategories.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
