@@ -1,0 +1,417 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HEMS_testModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Product_Code" />
+            <PropertyRef Name="Seq_Id" />
+          </Key>
+          <Property Name="Product_Code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Seq_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_Category_Code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Product_Category_Seq_Id" Type="int" Nullable="false" />
+          <Property Name="Product_Type_Code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Product_Type_Seq_Id" Type="int" Nullable="false" />
+          <Property Name="Product_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Product_Description" Type="varchar" MaxLength="500" />
+          <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Create_Date" Type="datetime" Nullable="false" />
+          <Property Name="Update_Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ProductCategory">
+          <Key>
+            <PropertyRef Name="Product_Category_Code" />
+            <PropertyRef Name="Seq_Id" />
+          </Key>
+          <Property Name="Product_Category_Code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Seq_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Category_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Category_Description" Type="varchar" MaxLength="500" />
+          <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Create_Date" Type="datetime" Nullable="false" />
+          <Property Name="Update_Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ProductType">
+          <Key>
+            <PropertyRef Name="Product_Type_Code" />
+            <PropertyRef Name="Seq_Id" />
+          </Key>
+          <Property Name="Product_Type_Code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Seq_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_Category_Code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Product_Category_Seq_Id" Type="int" Nullable="false" />
+          <Property Name="Type_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Type_Description" Type="varchar" MaxLength="500" />
+          <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Create_Date" Type="datetime" Nullable="false" />
+          <Property Name="Update_Date" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_ProductCategory_Product">
+          <End Role="ProductCategory" Type="Self.ProductCategory" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductCategory">
+              <PropertyRef Name="Product_Category_Code" />
+              <PropertyRef Name="Seq_Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Product_Category_Code" />
+              <PropertyRef Name="Product_Category_Seq_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductCategory_ProductType">
+          <End Role="ProductCategory" Type="Self.ProductCategory" Multiplicity="1" />
+          <End Role="ProductType" Type="Self.ProductType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductCategory">
+              <PropertyRef Name="Product_Category_Code" />
+              <PropertyRef Name="Seq_Id" />
+            </Principal>
+            <Dependent Role="ProductType">
+              <PropertyRef Name="Product_Category_Code" />
+              <PropertyRef Name="Product_Category_Seq_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductType_Product">
+          <End Role="ProductType" Type="Self.ProductType" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductType">
+              <PropertyRef Name="Product_Type_Code" />
+              <PropertyRef Name="Seq_Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Product_Type_Code" />
+              <PropertyRef Name="Product_Type_Seq_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="DeleteProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="code" Type="varchar" Mode="In" />
+          <Parameter Name="ErrN" Type="int" Mode="InOut" />
+          <Parameter Name="ErrM" Type="varchar" Mode="InOut" />
+        </Function>
+        <Function Name="DeleteProductCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="code" Type="varchar" Mode="In" />
+          <Parameter Name="ErrN" Type="int" Mode="InOut" />
+          <Parameter Name="ErrM" Type="varchar" Mode="InOut" />
+        </Function>
+        <Function Name="DeleteProductType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="code" Type="varchar" Mode="In" />
+          <Parameter Name="ErrN" Type="int" Mode="InOut" />
+          <Parameter Name="ErrM" Type="varchar" Mode="InOut" />
+        </Function>
+        <Function Name="SaveProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="seq" Type="int" Mode="InOut" />
+          <Parameter Name="code" Type="varchar" Mode="In" />
+          <Parameter Name="product_category_code" Type="varchar" Mode="In" />
+          <Parameter Name="product_type_code" Type="varchar" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="ErrN" Type="int" Mode="InOut" />
+          <Parameter Name="ErrM" Type="varchar" Mode="InOut" />
+        </Function>
+        <Function Name="SaveProductCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="seq" Type="int" Mode="InOut" />
+          <Parameter Name="code" Type="varchar" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="ErrN" Type="int" Mode="InOut" />
+          <Parameter Name="ErrM" Type="varchar" Mode="InOut" />
+        </Function>
+        <Function Name="SaveProductFull" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="product_code" Type="varchar" Mode="In" />
+          <Parameter Name="product_name" Type="varchar" Mode="In" />
+          <Parameter Name="product_desc" Type="varchar" Mode="In" />
+          <Parameter Name="type_code" Type="varchar" Mode="In" />
+          <Parameter Name="type_name" Type="varchar" Mode="In" />
+          <Parameter Name="type_desc" Type="varchar" Mode="In" />
+          <Parameter Name="cat_code" Type="varchar" Mode="In" />
+          <Parameter Name="cat_name" Type="varchar" Mode="In" />
+          <Parameter Name="cat_desc" Type="varchar" Mode="In" />
+          <Parameter Name="ErrN" Type="int" Mode="InOut" />
+          <Parameter Name="ErrM" Type="varchar" Mode="InOut" />
+        </Function>
+        <Function Name="SaveProductType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="seq" Type="int" Mode="InOut" />
+          <Parameter Name="code" Type="varchar" Mode="In" />
+          <Parameter Name="product_category_code" Type="varchar" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="ErrN" Type="int" Mode="InOut" />
+          <Parameter Name="ErrM" Type="varchar" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="HEMS_testModelStoreContainer">
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ProductCategory_Product" Association="Self.FK_ProductCategory_Product">
+            <End Role="ProductCategory" EntitySet="ProductCategory" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductCategory_ProductType" Association="Self.FK_ProductCategory_ProductType">
+            <End Role="ProductCategory" EntitySet="ProductCategory" />
+            <End Role="ProductType" EntitySet="ProductType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductType_Product" Association="Self.FK_ProductType_Product">
+            <End Role="ProductType" EntitySet="ProductType" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HEMS_testModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Product_Code" />
+            <PropertyRef Name="Seq_Id" />
+          </Key>
+          <Property Name="Product_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Seq_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_Category_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Product_Category_Seq_Id" Type="Int32" Nullable="false" />
+          <Property Name="Product_Type_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Product_Type_Seq_Id" Type="Int32" Nullable="false" />
+          <Property Name="Product_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Product_Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Create_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Update_Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ProductCategory" Relationship="Self.FK_ProductCategory_Product" FromRole="Product" ToRole="ProductCategory" />
+          <NavigationProperty Name="ProductType" Relationship="Self.FK_ProductType_Product" FromRole="Product" ToRole="ProductType" />
+        </EntityType>
+        <EntityType Name="ProductCategory">
+          <Key>
+            <PropertyRef Name="Product_Category_Code" />
+            <PropertyRef Name="Seq_Id" />
+          </Key>
+          <Property Name="Product_Category_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Seq_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Category_Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Create_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Update_Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_ProductCategory_Product" FromRole="ProductCategory" ToRole="Product" />
+          <NavigationProperty Name="ProductTypes" Relationship="Self.FK_ProductCategory_ProductType" FromRole="ProductCategory" ToRole="ProductType" />
+        </EntityType>
+        <EntityType Name="ProductType">
+          <Key>
+            <PropertyRef Name="Product_Type_Code" />
+            <PropertyRef Name="Seq_Id" />
+          </Key>
+          <Property Name="Product_Type_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Seq_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_Category_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Product_Category_Seq_Id" Type="Int32" Nullable="false" />
+          <Property Name="Type_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Type_Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Create_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Update_Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_ProductType_Product" FromRole="ProductType" ToRole="Product" />
+          <NavigationProperty Name="ProductCategory" Relationship="Self.FK_ProductCategory_ProductType" FromRole="ProductType" ToRole="ProductCategory" />
+        </EntityType>
+        <Association Name="FK_ProductCategory_Product">
+          <End Role="ProductCategory" Type="Self.ProductCategory" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductCategory">
+              <PropertyRef Name="Product_Category_Code" />
+              <PropertyRef Name="Seq_Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Product_Category_Code" />
+              <PropertyRef Name="Product_Category_Seq_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductType_Product">
+          <End Role="ProductType" Type="Self.ProductType" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductType">
+              <PropertyRef Name="Product_Type_Code" />
+              <PropertyRef Name="Seq_Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Product_Type_Code" />
+              <PropertyRef Name="Product_Type_Seq_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductCategory_ProductType">
+          <End Role="ProductCategory" Type="Self.ProductCategory" Multiplicity="1" />
+          <End Role="ProductType" Type="Self.ProductType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductCategory">
+              <PropertyRef Name="Product_Category_Code" />
+              <PropertyRef Name="Seq_Id" />
+            </Principal>
+            <Dependent Role="ProductType">
+              <PropertyRef Name="Product_Category_Code" />
+              <PropertyRef Name="Product_Category_Seq_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HEMS_testEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="ProductCategories" EntityType="Self.ProductCategory" />
+          <EntitySet Name="ProductTypes" EntityType="Self.ProductType" />
+          <AssociationSet Name="FK_ProductCategory_Product" Association="Self.FK_ProductCategory_Product">
+            <End Role="ProductCategory" EntitySet="ProductCategories" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductType_Product" Association="Self.FK_ProductType_Product">
+            <End Role="ProductType" EntitySet="ProductTypes" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductCategory_ProductType" Association="Self.FK_ProductCategory_ProductType">
+            <End Role="ProductCategory" EntitySet="ProductCategories" />
+            <End Role="ProductType" EntitySet="ProductTypes" />
+          </AssociationSet>
+          <FunctionImport Name="DeleteProduct">
+            <Parameter Name="code" Mode="In" Type="String" />
+            <Parameter Name="ErrN" Mode="InOut" Type="Int32" />
+            <Parameter Name="ErrM" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteProductCategory">
+            <Parameter Name="code" Mode="In" Type="String" />
+            <Parameter Name="ErrN" Mode="InOut" Type="Int32" />
+            <Parameter Name="ErrM" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteProductType">
+            <Parameter Name="code" Mode="In" Type="String" />
+            <Parameter Name="ErrN" Mode="InOut" Type="Int32" />
+            <Parameter Name="ErrM" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SaveProduct">
+            <Parameter Name="seq" Mode="InOut" Type="Int32" />
+            <Parameter Name="code" Mode="In" Type="String" />
+            <Parameter Name="product_category_code" Mode="In" Type="String" />
+            <Parameter Name="product_type_code" Mode="In" Type="String" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="ErrN" Mode="InOut" Type="Int32" />
+            <Parameter Name="ErrM" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SaveProductCategory">
+            <Parameter Name="seq" Mode="InOut" Type="Int32" />
+            <Parameter Name="code" Mode="In" Type="String" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="ErrN" Mode="InOut" Type="Int32" />
+            <Parameter Name="ErrM" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SaveProductType">
+            <Parameter Name="seq" Mode="InOut" Type="Int32" />
+            <Parameter Name="code" Mode="In" Type="String" />
+            <Parameter Name="product_category_code" Mode="In" Type="String" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="ErrN" Mode="InOut" Type="Int32" />
+            <Parameter Name="ErrM" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SaveProductFull">
+            <Parameter Name="product_code" Mode="In" Type="String" />
+            <Parameter Name="product_name" Mode="In" Type="String" />
+            <Parameter Name="product_desc" Mode="In" Type="String" />
+            <Parameter Name="type_code" Mode="In" Type="String" />
+            <Parameter Name="type_name" Mode="In" Type="String" />
+            <Parameter Name="type_desc" Mode="In" Type="String" />
+            <Parameter Name="cat_code" Mode="In" Type="String" />
+            <Parameter Name="cat_name" Mode="In" Type="String" />
+            <Parameter Name="cat_desc" Mode="In" Type="String" />
+            <Parameter Name="ErrN" Mode="InOut" Type="Int32" />
+            <Parameter Name="ErrM" Mode="InOut" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HEMS_testModelStoreContainer" CdmEntityContainer="HEMS_testEntities">
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="HEMS_testModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Product_Code" ColumnName="Product_Code" />
+                <ScalarProperty Name="Seq_Id" ColumnName="Seq_Id" />
+                <ScalarProperty Name="Product_Category_Code" ColumnName="Product_Category_Code" />
+                <ScalarProperty Name="Product_Category_Seq_Id" ColumnName="Product_Category_Seq_Id" />
+                <ScalarProperty Name="Product_Type_Code" ColumnName="Product_Type_Code" />
+                <ScalarProperty Name="Product_Type_Seq_Id" ColumnName="Product_Type_Seq_Id" />
+                <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
+                <ScalarProperty Name="Product_Description" ColumnName="Product_Description" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Create_Date" ColumnName="Create_Date" />
+                <ScalarProperty Name="Update_Date" ColumnName="Update_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductCategories">
+            <EntityTypeMapping TypeName="HEMS_testModel.ProductCategory">
+              <MappingFragment StoreEntitySet="ProductCategory">
+                <ScalarProperty Name="Product_Category_Code" ColumnName="Product_Category_Code" />
+                <ScalarProperty Name="Seq_Id" ColumnName="Seq_Id" />
+                <ScalarProperty Name="Category_Name" ColumnName="Category_Name" />
+                <ScalarProperty Name="Category_Description" ColumnName="Category_Description" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Create_Date" ColumnName="Create_Date" />
+                <ScalarProperty Name="Update_Date" ColumnName="Update_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductTypes">
+            <EntityTypeMapping TypeName="HEMS_testModel.ProductType">
+              <MappingFragment StoreEntitySet="ProductType">
+                <ScalarProperty Name="Product_Type_Code" ColumnName="Product_Type_Code" />
+                <ScalarProperty Name="Seq_Id" ColumnName="Seq_Id" />
+                <ScalarProperty Name="Product_Category_Code" ColumnName="Product_Category_Code" />
+                <ScalarProperty Name="Product_Category_Seq_Id" ColumnName="Product_Category_Seq_Id" />
+                <ScalarProperty Name="Type_Name" ColumnName="Type_Name" />
+                <ScalarProperty Name="Type_Description" ColumnName="Type_Description" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Create_Date" ColumnName="Create_Date" />
+                <ScalarProperty Name="Update_Date" ColumnName="Update_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="DeleteProduct" FunctionName="HEMS_testModel.Store.DeleteProduct" />
+          <FunctionImportMapping FunctionImportName="DeleteProductCategory" FunctionName="HEMS_testModel.Store.DeleteProductCategory" />
+          <FunctionImportMapping FunctionImportName="DeleteProductType" FunctionName="HEMS_testModel.Store.DeleteProductType" />
+          <FunctionImportMapping FunctionImportName="SaveProduct" FunctionName="HEMS_testModel.Store.SaveProduct" />
+          <FunctionImportMapping FunctionImportName="SaveProductCategory" FunctionName="HEMS_testModel.Store.SaveProductCategory" />
+          <FunctionImportMapping FunctionImportName="SaveProductType" FunctionName="HEMS_testModel.Store.SaveProductType" />
+          <FunctionImportMapping FunctionImportName="SaveProductFull" FunctionName="HEMS_testModel.Store.SaveProductFull" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

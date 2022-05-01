@@ -1,0 +1,58 @@
+﻿@model List<HEMS_Test.Models.ProductCategory>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div id="tabs" style="width: 90%">
+    <ul>
+        @foreach (var cat in Model)
+        {
+            <li><a href="#tab-@cat.Category_Name">@cat.Category_Name</a></li>
+        }
+    </ul>
+    @foreach (var cat in Model)
+    {
+        <div id="tab-@cat.Category_Name">
+            <p>@cat.Category_Description</p>
+            @foreach (var type in cat.ProductTypes)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            @type.Type_Name
+                        </div>
+                        <p>@type.Type_Description</p>
+                    </div>
+                    <div class="panel-body">
+                        @foreach (var p in type.Products)
+                        {
+                            <div>
+                                <p><b>@p.Product_Name</b></p>
+                                <div >
+                                    @p.Product_Description
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+<div>
+    <a id="a_Create" class="btn btn-primary">
+        Create
+    </a>
+</div>
+@section scripts{
+    <script>
+        $(function () {
+            $("#tabs").tabs(
+                
+            );
+            $('#a_Create').click(function (e) {
+                window.location.href = '@Url.Action("Create", "Home")';
+            });
+        });
+    </script>
+}

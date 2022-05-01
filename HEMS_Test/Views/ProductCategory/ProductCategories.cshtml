@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.Title = "Product Categories";
+}
+
+<h2>Product Categories</h2>
+<div class="modal fade" tabindex="-1" role="dialog" id="CreatePanel">
+    <div class="modal-dialog" role="document" style="width: 60%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title">New Product Category</h5>
+
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <center>
+                    <button type="button" class="btn btn-primary" onclick="Create_Continue()">Add<i class="fa fa-plus-circle"></i></button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel<i class="fa fa-ban"></i></button>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="EditPanel">
+    <div class="modal-dialog" role="document" style="width: 60%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title">Edit Product Category</h5>
+
+            </div>
+            <div class="modal-body">
+                @{
+                    // Html.RenderPartial("Partials/NewBundle");
+                }
+            </div>
+            <div class="modal-footer">
+                <center>
+                    <button type="button" class="btn btn-primary" onclick="Edit_Continue()">Update<i class="fa fa-plus-circle"></i></button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel<i class="fa fa-ban"></i></button>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row ">
+    <div class="col-md-12 ">
+        <div style="clear: right" class="table-bordered">
+            <a id="btn_New" class="fa fa-plus-circle btn btn-default" onclick="Create_Show()"></a>
+        </div>
+    </div>
+</div>
+
+<table id="data_table" class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                Category Code
+            </th>
+            <th>
+                Category Name
+            </th>
+            <th>
+                Category Description
+            </th>
+            <th>
+                Create Date
+            </th>
+            <th>
+                Update Date
+            </th>            
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts {
+    <script src="~/Scripts/Views/ProductCategory.js"></script>
+    <script>
+        var table;
+        $(function () {
+            table = LoadTable();
+        });        
+    
+    </script>
+}

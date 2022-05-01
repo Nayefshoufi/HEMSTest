@@ -1,0 +1,33 @@
+﻿<label class="label label-info">Product Category</label>
+<div class="col-md-12" style="border: 1px solid; border-radius: 10px">
+    <div class="col-md-2">
+        <label class="control-label">Category Code</label>
+    </div>
+    <div class="col-md-10">
+        <input type="text" class="cat_inputs" id="txt_CatCode" name="cat_code" style="width: 100%" />
+    </div>
+    <div class="col-md-2">
+        <label class="control-label">Category Name</label>
+    </div>
+    <div class="col-md-10">
+        <input type="text" class="cat_inputs" id="txt_CatName" name="cat_name" style="width: 100%" />
+    </div>
+    <div class="col-md-2">
+        <label class="control-label">Category Description</label>
+    </div>
+    <div class="col-md-10">
+        <textarea rows="4" id="txt_CatDesc" class="cat_inputs" style="width: 100%" name="cat_description"></textarea>
+    </div>
+    <div class="col-md-12">
+        <button id="btn_CreateType" class="btn btn-info">
+            Create Type
+        </button>
+        <button id="btn_SaveCat" class="btn btn-success hidden">
+            Save Category
+        </button>
+    </div>
+    <div id="div_Type" class="col-md-12 hidden">
+        @Html.Partial("Partials/_CreateProductType")
+    </div>
+
+</div>

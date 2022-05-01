@@ -1,0 +1,75 @@
+﻿@model HEMS_Test.ViewModel.CreateModel
+@{
+    ViewBag.Title = "Home Page";
+}
+<div class="col-lg-12">
+    <div style="width: 90%">
+        @Html.Partial("Partials/_CreateProductCategory")
+    </div>
+</div>
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "form_submit" }))
+{
+    @Html.HiddenFor(m => m.ProductCode, new { id = "hdn_ProductCode" })
+    @Html.HiddenFor(m => m.ProductName, new { id = "hdn_ProductName" })
+    @Html.HiddenFor(m => m.ProductDescription, new { id = "hdn_ProductDesc" })
+    @Html.HiddenFor(m => m.TypeCode, new { id = "hdn_TypeCode" })
+    @Html.HiddenFor(m => m.TypeName, new { id = "hdn_TypeName" })
+    @Html.HiddenFor(m => m.TypeDescription, new { id = "hdn_TypeDesc" })
+    @Html.HiddenFor(m => m.CategoryCode, new { id = "hdn_CatCode" })
+    @Html.HiddenFor(m => m.CategoryName, new { id = "hdn_CatName" })
+    @Html.HiddenFor(m => m.CategoryDescription, new { id = "hdn_CatDesc" })
+}
+@section scripts{
+    <script>
+        $(function () {
+            $('#btn_CreateType').click(function (e) {
+                $('#btn_CreateType').addClass('hidden');
+                $('#div_Type').removeClass('hidden');
+                $('.cat_inputs').attr('disabled', 'disabled');
+            });
+            $('#btn_CreateProduct').click(function (e) {
+                $('#btn_CreateProduct').addClass('hidden');
+                $('#div_Product').removeClass('hidden');
+                $('.type_inputs').attr('disabled', 'disabled');
+            });
+            $('#btn_SaveProduct').click(function (e) {
+                $('#hdn_ProductCode').val($('#txt_ProductCode').val());
+                $('#hdn_ProductName').val($('#txt_ProductName').val());
+                $('#hdn_ProductDesc').val($('#txt_ProductDesc').val());
+                $('#div_Product').addClass('hidden');
+                $('#btn_SaveType').removeClass('hidden');
+                $('.type_inputs').removeAttr('disabled');
+            });
+            $('#btn_SaveType').click(function (e) {
+                $('#hdn_TypeCode').val($('#txt_TypeCode').val());
+                $('#hdn_TypeName').val($('#txt_TypeName').val());
+                $('#hdn_TypeDesc').val($('#txt_TypeDesc').val());
+                $('#div_Type').addClass('hidden');
+                $('#btn_SaveCat').removeClass('hidden');
+                $('.cat_inputs').removeAttr('disabled');
+            });
+            $('#btn_SaveCat').click(function (e) {
+                $('#hdn_CatCode').val($('#txt_CatCode').val());
+                $('#hdn_CatName').val($('#txt_CatName').val());
+                $('#hdn_CatDesc').val($('#txt_CatDesc').val());
+                $.ajax({
+                    url: '@Url.Action("Create","Home")',
+                    type: 'POST',
+                    data: $('#form_submit').serialize(),
+                    success: function (data) {
+                        if (data.result == 0) {
+                            alert('Success');
+                            window.location.href = '@Url.Action("Index", "Home")'
+                        }
+                        else {
+                            alert('Failed');
+                        }
+                    },
+                    error: function (error) {
+                        alert('error');
+                    }
+                });
+            });
+        });
+    </script>
+}

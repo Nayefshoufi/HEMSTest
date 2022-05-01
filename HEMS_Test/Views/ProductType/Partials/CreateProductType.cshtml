@@ -1,0 +1,67 @@
+﻿@using HEMS_Test.Models
+
+@model HEMS_Test.Models.ProductType
+
+@{ 
+    HEMS_testEntities entity = new HEMS_testEntities();
+    List<ProductCategory> Categories = entity.ProductCategories.Where(x => x.Status == "ACTIVE").ToList();    
+}
+@using (Html.BeginForm("CreateProductType", "ProductType", FormMethod.Post, new { id = "form_CreateProductType" }))
+{
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="panel-title">
+                New Product Type
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                        <span class="bold">
+                            Type Code
+                        </span>
+                    </div>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.Product_Type_Code, new { @class = "form-control", autocomplete = "off" })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                        <span class="bold">
+                            Type Name
+                        </span>
+                    </div>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.Type_Name, new { @class = "form-control", autocomplete = "off" })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                        <span class="bold">
+                            Type Description
+                        </span>
+                    </div>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.Type_Description, new { @class = "form-control", autocomplete = "off" })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                        <span class="bold">
+                            Product Category
+                        </span>
+                    </div>
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m => m.Product_Category_Code, new SelectList(Categories.Select(x => new SelectListItem { Text = x.Category_Name, Value = x.Product_Category_Code }).ToList(), "Value", "Text"), new { @class = "form-control", onchange="changeCategory()", autocomplete = "off" })
+                    </div>
+                </div>                   
+                <div class="col-md-12"></div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    
+</script>

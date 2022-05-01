@@ -1,0 +1,44 @@
+﻿@using HEMS_Test.Models
+
+@model HEMS_Test.Models.Product
+
+@using (Html.BeginForm("EditProduct", "Product", FormMethod.Post, new { id = "form_EditProduct" }))
+{
+    @Html.HiddenFor(x => x.Product_Code)
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="panel-title">
+                New Product
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                        <span class="bold">
+                            Product Name
+                        </span>
+                    </div>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.Product_Name, new { @class = "form-control", autocomplete = "off" })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                        <span class="bold">
+                            Product Description
+                        </span>
+                    </div>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.Product_Description, new { @class = "form-control", autocomplete = "off" })
+                    </div>
+                </div>
+                <div class="col-md-12"></div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    
+</script>
