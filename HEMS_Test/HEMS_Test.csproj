@@ -179,6 +179,9 @@
     <Content Include="Content\buttons.bootstrap.css" />
     <Content Include="Content\buttons.dataTables.css" />
     <Content Include="Content\dataTables.bootstrap.css" />
+    <Content Include="Content\font-awesome\css\font-awesome.css" />
+    <Content Include="Content\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\jquery-confirm.css" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\select.bootstrap.css" />
@@ -207,6 +210,11 @@
       <DependentUpon>DbModel.edmx</DependentUpon>
     </Content>
     <Content Include="App_Data\HEMS_test.bak" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\font-awesome\fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\dataTables.bootstrap.js" />
     <Content Include="Scripts\dataTables.buttons.js" />
